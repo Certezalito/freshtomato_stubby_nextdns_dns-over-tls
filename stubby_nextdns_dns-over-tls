@@ -1,8 +1,8 @@
-## Stubby opportunistic dns-over-tls configuration for NextDNS on FreshTomato
-## Requires Stubby enabled on Advanced > DHCP/DNS tab
-## Paste this into Administration > Scripts > WAN Up (main)
+## Stubby opportunistic dns-over-tls (DoT) configuration for NextDNS on FreshTomato
+## Requires Stubby enabled on Advanced > DHCP/DNS tab, Requires your NextDNS cpe code
+## Within FreshTomato, paste this script into Administration > Scripts > WAN Up (main)
 ## Test settings @ https://test.nextdns.io/, it should show ""protocol": "DOT""
-## Replace xxxxxx with your particular cpe from NextDNS
+## Replace xxxxxx with your particular cpe from NextDNS, replace devicename with your choosing
 
 devicename=stubby
 cpe=xxxxxx
@@ -10,12 +10,13 @@ cpe=xxxxxx
 # copy default stubby config to alternate supported location
 cp /etc/stubby/stubby.yml /etc/stubby/stubby_alt.yml
 
-# remove the existing transport config and existing dns servers
+# remove the existing transport config
 sed -i '/tls_authentication/d' /etc/stubby/stubby_alt.yml
 sed -i '/dns_transport_list/d' /etc/stubby/stubby_alt.yml
 sed -i '/GETDNS_TRANSPORT_TLS/d' /etc/stubby/stubby_alt.yml
 sed -i '/GETDNS_TRANSPORT_TCP/d' /etc/stubby/stubby_alt.yml
-sed -i '/GETDNS_TRANSPORT_UDP/d' /etc/stubby/stubby_alt.yml   
+sed -i '/GETDNS_TRANSPORT_UDP/d' /etc/stubby/stubby_alt.yml
+# remove the existing dns servers   
 sed -i '/round_robin_upstreams/d' /etc/stubby/stubby_alt.yml
 sed -i '/upstream_recursive_servers/d' /etc/stubby/stubby_alt.yml
 sed -i '/address_data/d' /etc/stubby/stubby_alt.yml
