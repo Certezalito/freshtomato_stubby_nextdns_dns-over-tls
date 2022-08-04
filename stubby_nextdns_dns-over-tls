@@ -2,7 +2,7 @@
 ## Requires Stubby enabled on Advanced > DHCP/DNS tab
 ## Paste this into Administration > Scripts > WAN Up (main)
 ## Test settings @ https://test.nextdns.io/
-## Replace xxxxxx with your particular cpe from NextDNS, you can prepend a device name to the cpe as well e.g. "My--Router-xxxxxx.dns.nextdns.io"
+## Replace xxxxxx with your particular cpe from NextDNS
 
 devicename=stubby
 cpe=xxxxxx
