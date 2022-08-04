@@ -1,8 +1,10 @@
 ## Stubby opportunistic dns-over-tls configuration for NextDNS on FreshTomato
 ## Requires Stubby enabled on Advanced > DHCP/DNS tab
 ## Paste this into Administration > Scripts > WAN Up (main)
-## Replace xxxxxx with your particular cpe from NextDNS
 ## Test settings @ https://test.nextdns.io/
+## Replace xxxxxx with your particular cpe from NextDNS
+
+cpe=xxxxxx
 
 # copy default stubby config to alt location
 cp /etc/stubby/stubby.yml /etc/stubby/stubby_alt.yml
@@ -23,12 +25,12 @@ echo "dns_transport_list:
 echo "round_robin_upstreams: 1
 upstream_recursive_servers:
   - address_data: 45.90.28.0
-    tls_auth_name: "xxxxxx.dns1.nextdns.io"
+    tls_auth_name: "$cpe.dns1.nextdns.io"
   - address_data: 2a07:a8c0::0
-    tls_auth_name: "xxxxxx.dns1.nextdns.io"
+    tls_auth_name: "$cpe.dns1.nextdns.io"
   - address_data: 45.90.30.0
-    tls_auth_name: "xxxxxx.dns2.nextdns.io"
+    tls_auth_name: "$cpe.dns2.nextdns.io"
   - address_data: 2a07:a8c1::0
-    tls_auth_name: "xxxxxx.dns2.nextdns.io"" >> /etc/stubby/stubby_alt.yml 
+    tls_auth_name: "$cpe.dns2.nextdns.io"" >> /etc/stubby/stubby_alt.yml 
 # restart stubby for new settings to take effect
 service stubby restart
