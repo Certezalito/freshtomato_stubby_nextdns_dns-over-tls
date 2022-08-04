@@ -1,7 +1,7 @@
 ## Stubby dns-over-tls configuration for NextDNS on FreshTomato
 ## Requires Stubby enabled on Advanced > DHCP/DNS tab
 ## Paste this into Administration > Scripts > WAN Up (main)
-## Replace xxxxxx with your particular cpe from nextdns
+## Replace xxxxxx with your particular cpe from NextDNS
 ## Test settings @ https://test.nextdns.io/
 
 # copy default stubby config to alt location
