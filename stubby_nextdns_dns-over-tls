@@ -32,7 +32,6 @@ dns_transport_list:
   - GETDNS_TRANSPORT_TLS
   - GETDNS_TRANSPORT_UDP
   - GETDNS_TRANSPORT_TCP" >> /etc/stubby/stubby_alt.yml
-
 # append nextdns dns-over-tls config to stubby configuration
 echo "round_robin_upstreams: 1
 upstream_recursive_servers:
