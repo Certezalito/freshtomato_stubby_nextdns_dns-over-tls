@@ -2,8 +2,9 @@
 ## Requires Stubby enabled on Advanced > DHCP/DNS tab
 ## Paste this into Administration > Scripts > WAN Up (main)
 ## Test settings @ https://test.nextdns.io/
-## Replace xxxxxx with your particular cpe from NextDNS
+## Replace xxxxxx with your particular cpe from NextDNS, you can prepend a device name to the cpe as well e.g. "My--Router-xxxxxx.dns.nextdns.io"
 
+devicename=stubby
 cpe=xxxxxx
 
 # copy default stubby config to alt location
@@ -16,21 +17,21 @@ sed -i '/round_robin_upstreams/d' /etc/stubby/stubby_alt.yml
 sed -i '/upstream_recursive_servers/d' /etc/stubby/stubby_alt.yml
 sed -i '/address_data/d' /etc/stubby/stubby_alt.yml
 sed -i '/tls_auth_name/d' /etc/stubby/stubby_alt.yml
-# append opportunistic dns-over-tls settings 
+# append opportunistic dns-over-tls settings to stubby configuration
 echo "dns_transport_list: 
   - GETDNS_TRANSPORT_TLS
   - GETDNS_TRANSPORT_UDP
   - GETDNS_TRANSPORT_TCP" >> /etc/stubby/stubby_alt.yml
-# append nextdns dns-over-tls config to stubby config
+# append nextdns dns-over-tls config to stubby configuration
 echo "round_robin_upstreams: 1
 upstream_recursive_servers:
   - address_data: 45.90.28.0
-    tls_auth_name: "$cpe.dns1.nextdns.io"
+    tls_auth_name: "$devicename.$cpe.dns1.nextdns.io"
   - address_data: 2a07:a8c0::0
-    tls_auth_name: "$cpe.dns1.nextdns.io"
+    tls_auth_name: "$devicename.$cpe.dns1.nextdns.io"
   - address_data: 45.90.30.0
-    tls_auth_name: "$cpe.dns2.nextdns.io"
+    tls_auth_name: "$devicename.$cpe.dns2.nextdns.io"
   - address_data: 2a07:a8c1::0
-    tls_auth_name: "$cpe.dns2.nextdns.io"" >> /etc/stubby/stubby_alt.yml 
+    tls_auth_name: "$devicename.$cpe.dns2.nextdns.io"" >> /etc/stubby/stubby_alt.yml 
 # restart stubby for new settings to take effect
 service stubby restart
