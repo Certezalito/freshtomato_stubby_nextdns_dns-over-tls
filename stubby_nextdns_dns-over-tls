@@ -1,8 +1,8 @@
 ## Stubby opportunistic dns-over-tls (DoT) configuration for NextDNS on FreshTomato
-## Requires Stubby enabled on Advanced > DHCP/DNS tab, Requires your NextDNS cpe code
+## Requires Stubby enabled on Advanced > DHCP/DNS tab, Requires your NextDNS cpe ID
 ## Within FreshTomato, paste this script into Administration > Scripts > WAN Up (main)
 ## Test settings @ https://test.nextdns.io/, it should show ""protocol": "DOT""
-## Replace xxxxxx with your particular cpe from NextDNS, replace devicename with your choosing
+## Replace cpe with your particular cpe ID from NextDNS, replace devicename with your choosing
 
 devicename=stubby
 cpe=xxxxxx
