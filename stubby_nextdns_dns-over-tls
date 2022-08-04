@@ -1,7 +1,7 @@
 ## Stubby opportunistic dns-over-tls configuration for NextDNS on FreshTomato
 ## Requires Stubby enabled on Advanced > DHCP/DNS tab
 ## Paste this into Administration > Scripts > WAN Up (main)
-## Test settings @ https://test.nextdns.io/
+## Test settings @ https://test.nextdns.io/, it should show ""protocol": "DOT""
 ## Replace xxxxxx with your particular cpe from NextDNS
 
 devicename=stubby
@@ -9,19 +9,28 @@ cpe=xxxxxx
 
 # copy default stubby config to alternate supported location
 cp /etc/stubby/stubby.yml /etc/stubby/stubby_alt.yml
-# remove the existing dns servers and the non tls config
+
+# remove the existing transport config and existing dns servers
+sed -i '/tls_authentication/d' /etc/stubby/stubby_alt.yml
 sed -i '/dns_transport_list/d' /etc/stubby/stubby_alt.yml
+sed -i '/GETDNS_TRANSPORT_TLS/d' /etc/stubby/stubby_alt.yml
 sed -i '/GETDNS_TRANSPORT_TCP/d' /etc/stubby/stubby_alt.yml
 sed -i '/GETDNS_TRANSPORT_UDP/d' /etc/stubby/stubby_alt.yml   
 sed -i '/round_robin_upstreams/d' /etc/stubby/stubby_alt.yml
 sed -i '/upstream_recursive_servers/d' /etc/stubby/stubby_alt.yml
 sed -i '/address_data/d' /etc/stubby/stubby_alt.yml
 sed -i '/tls_auth_name/d' /etc/stubby/stubby_alt.yml
+sed -i '/tls_pubkey_pinset/d' /etc/stubby/stubby_alt.yml
+sed -i '/digest/d' /etc/stubby/stubby_alt.yml
+sed -i '/value/d' /etc/stubby/stubby_alt.yml
+
 # append opportunistic dns-over-tls settings to stubby configuration
-echo "dns_transport_list: 
+echo "tls_authentication: GETDNS_AUTHENTICATION_NONE
+dns_transport_list: 
   - GETDNS_TRANSPORT_TLS
   - GETDNS_TRANSPORT_UDP
   - GETDNS_TRANSPORT_TCP" >> /etc/stubby/stubby_alt.yml
+
 # append nextdns dns-over-tls config to stubby configuration
 echo "round_robin_upstreams: 1
 upstream_recursive_servers:
@@ -33,5 +42,6 @@ upstream_recursive_servers:
     tls_auth_name: "$devicename-$cpe.dns2.nextdns.io"
   - address_data: 2a07:a8c1::0
     tls_auth_name: "$devicename-$cpe.dns2.nextdns.io"" >> /etc/stubby/stubby_alt.yml 
+
 # restart stubby for new settings to take effect
 service stubby restart
