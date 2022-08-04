@@ -9,10 +9,10 @@
 devicename=stubby
 cpe=xxxxxx
 
-# copy default stubby config to alternate supported location
+# copy default stubby configuration to alternate supported location
 cp /etc/stubby/stubby.yml /etc/stubby/stubby_alt.yml
 
-# remove the existing transport config
+# remove the existing transport configuration
 sed -i '/tls_authentication/d' /etc/stubby/stubby_alt.yml
 sed -i '/dns_transport_list/d' /etc/stubby/stubby_alt.yml
 sed -i '/GETDNS_TRANSPORT_TLS/d' /etc/stubby/stubby_alt.yml
