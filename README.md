@@ -8,6 +8,4 @@ Optionally paste the script into shell prompt for immediate results, however the
 Test settings @ https://test.nextdns.io/, it should show ""protocol": "DOT""
 Replace cpe with your particular cpe ID from NextDNS, replace devicename with your choosing
 To revert your stubby changes:
-'''
-rm /etc/stubby/stubby_alt.yml && service stubby restart
-'''
+'rm /etc/stubby/stubby_alt.yml && service stubby restart'
