@@ -1,7 +1,7 @@
 # Stubby opportunistic dns-over-tls (DoT) configuration for NextDNS on FreshTomato
 
 ## Requirements:
-* Stubby enabled on Advanced > DHCP/DNS tab
+* "Use Stubby" enabled on "Advanced" > "DHCP/DNS" tab
 * Your NextDNS cpe ID (https://my.nextdns.io/ see "ID")
 
 ## Directions:
