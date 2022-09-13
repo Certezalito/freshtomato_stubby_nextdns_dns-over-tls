@@ -5,7 +5,9 @@
 * Your NextDNS cpe ID (https://my.nextdns.io/ see "ID")
 
 ## Directions:
-Replace cpe with your particular cpe ID from NextDNS, replace devicename with your choosing
+Replace `cpe` with your particular cpe ID from NextDNS
+
+Replace `devicename` with your choosing
 
 Paste this script into Administration > Scripts > WAN Up (main) and during reboot the script will take effect
 
