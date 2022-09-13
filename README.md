@@ -14,7 +14,9 @@ Paste this script into Administration > Scripts > WAN Up (main) and during reboo
 Optionally paste the script into shell prompt for immediate results, however the configuration will be lost on reboot unless its saved in the scripts section of FreshTomato
 
 ## Testing:
-https://test.nextdns.io/, it should show `"protocol": "DOT",`
+Disable any browser specific nextdns settings
+
+Visit https://test.nextdns.io/ and it should show `"protocol": "DOT",`   
 
 ## Revert changes:
 `rm /etc/stubby/stubby_alt.yml && service stubby restart`
