@@ -2,6 +2,9 @@
 devicename=stubby
 # Required: Your nextdns ID goes here
 cpe=xxxxxx
+# Do you want strict mode or opportunistic?
+mode=strict 
+
 
 # copy default stubby configuration to alternate supported location
 cp /etc/stubby/stubby.yml /etc/stubby/stubby_alt.yml
@@ -21,12 +24,21 @@ sed -i '/tls_pubkey_pinset/d' /etc/stubby/stubby_alt.yml
 sed -i '/digest/d' /etc/stubby/stubby_alt.yml
 sed -i '/value/d' /etc/stubby/stubby_alt.yml
 
+if [ "$mode" == "strict" ]
+then
+# append strict dns-over-tls settings to stubby configuration
+echo "tls_authentication: GETDNS_AUTHENTICATION_REQUIRED
+dns_transport_list: 
+  - GETDNS_TRANSPORT_TLS" >> /etc/stubby/stubby_alt.yml
+else
 # append opportunistic dns-over-tls settings to stubby configuration
 echo "tls_authentication: GETDNS_AUTHENTICATION_NONE
 dns_transport_list: 
   - GETDNS_TRANSPORT_TLS
   - GETDNS_TRANSPORT_UDP
   - GETDNS_TRANSPORT_TCP" >> /etc/stubby/stubby_alt.yml
+fi 
+
 # append nextdns dns-over-tls config to stubby configuration
 echo "round_robin_upstreams: 1
 upstream_recursive_servers:
